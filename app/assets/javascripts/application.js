@@ -15,7 +15,7 @@
 var app = angular.module('App', ['ui.calendar', 'firebase']);
 
 
-app.controller('CalendarCtrl', function($scope, $firebaseArray) {
+app.controller('CalendarCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
 
     var ref = new Firebase("https://e-tech.firebaseio.com/users/bdsimmons/events");
 
@@ -46,4 +46,4 @@ app.controller('CalendarCtrl', function($scope, $firebaseArray) {
     //   start: moment().add(1, 'month').valueOf()
     // });
 
-});
+}]);
