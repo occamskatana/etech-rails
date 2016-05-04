@@ -19,32 +19,50 @@ app.controller('CalendarCtrl', ['$scope', '$firebaseArray', function($scope, $fi
 
     var ref = new Firebase("https://e-tech.firebaseio.com/users/bdsimmons/events");
 
-    $scope.events = $firebaseArray(ref);
+    
+    $scope.events = $firebaseArray(ref)
+    
 
     $scope.alertOnDrop = function(event, delta, revertFunc) {
-      console.log(event, delta, revertFunc);
+     array = $scope.events
+
+     record = array.$getRecord(event.$id)
+     
+     console.log(event._end.valueOf())
+
+     record.start = event._start.valueOf()
+     record.end = event._end.valueOf()
+
+     array.$save(record)
+
     };
 
+    $scope.events.$loaded(function(){
+
+      $scope.uiConfig = {
+        calendar:{
+          editable: true,
+          header:{
+            left: 'month agendaWeek agendaDay',
+            center: 'title',
+            right: 'today prev,next'
+          },
+          events: $scope.events,
+          // dayClick: $scope.alertEventOnClick,
+          eventDrop: $scope.alertOnDrop,
+          // eventResize: $scope.alertOnResize
+        }
+      };
+
+    })
+
     /* config object */
-    $scope.uiConfig = {
-      calendar:{
-        editable: true,
-        header:{
-          left: 'month agendaWeek agendaDay',
-          center: 'title',
-          right: 'today prev,next'
-        },
-        events: $scope.events,
-        // dayClick: $scope.alertEventOnClick,
-        eventDrop: $scope.alertOnDrop,
-        // eventResize: $scope.alertOnResize
-      }
-    };
+   
 
     // $scope.events.$add({
     //   title: 'Test Event',
     //   start: moment().add(1, 'month').valueOf(),
-    //   endTime: moment().add(1, 'month').valueOf() + 1000000000000000
+    //   end: moment().add(1, 'month').valueOf() + 100000
     // });
 
 }]);
