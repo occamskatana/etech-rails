@@ -43,7 +43,8 @@ app.controller('CalendarCtrl', ['$scope', '$firebaseArray', function($scope, $fi
 
     // $scope.events.$add({
     //   title: 'Test Event',
-    //   start: moment().add(1, 'month').valueOf()
+    //   start: moment().add(1, 'month').valueOf(),
+    //   endTime: moment().add(1, 'month').valueOf() + 1000000000000000
     // });
 
 }]);
