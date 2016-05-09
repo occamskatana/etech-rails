@@ -7,9 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-if User.where(email: 'johngallweycarter@gmail.com') != nil
-	admin = User.create!(email: 'johngallweycarter@gmail.com', password: 'helloworld')
-end
+admin = User.create!(email: 'johngallweycarter@gmail.com', password: 'helloworld')
 
 
-puts "#{admin} created"
+Resident.create(email: 'jgfc35@aol.com', password: 'helloworld', first_name: 'Ben', last_name: 'Simmons', phone_number: Faker::PhoneNumber.cell_phone, calendar: 'https://e-tech.firebaseio.com/users/bdsimmons/events', user: User.first)
+
+
+
