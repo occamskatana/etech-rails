@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509025359) do
+ActiveRecord::Schema.define(version: 20160519201313) do
+
+  create_table "cases", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "resident_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "cases", ["resident_id"], name: "index_cases_on_resident_id"
+  add_index "cases", ["user_id"], name: "index_cases_on_user_id"
 
 # Could not dump table "residents" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
@@ -29,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160509025359) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
