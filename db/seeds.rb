@@ -10,15 +10,27 @@
 admin = User.create!(email: 'johngallweycarter@gmail.com', password: 'helloworld', role: 'case_manager')
 
 
-Resident.create(
-	email: 'jgfc35@aol.com', 
-	password: 'helloworld', 
-	first_name: 'Ben', 
-	last_name: 'Simmons', 
-	phone_number: Faker::PhoneNumber.cell_phone, 
-	calendar: 'https://e-tech.firebaseio.com/users/bdsimmons/events', 
-	user: User.first
+
+
+residents = 10.times {
+	Resident.create(
+		email: Faker::Internet.email,
+		password: 'helloworld',
+		first_name: Faker::Name.first_name,
+		last_name: Faker::Name.last_name, 
+		phone_number: Faker::PhoneNumber.cell_phone,
+		calendar: 'https://e-tech.firebaseio.com/users/bdsimmons/events',
+		user: User.first,
+		phase: ["1", "2", "3"].sample
 	)
+}
 
+residents = Resident.all
 
+cases = residents.each {|resident| 
+	Case.create(
+		user_id: 1,
+		resident_id: resident.id
+		)
+}
 
