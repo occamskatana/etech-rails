@@ -20,12 +20,13 @@ residents = 10.times {
 		last_name: Faker::Name.last_name, 
 		phone_number: Faker::PhoneNumber.cell_phone,
 		calendar: 'https://e-tech.firebaseio.com/users/bdsimmons/events',
-		user: User.first,
+		user_id: User.first,
 		phase: ["1", "2", "3"].sample
 	)
 }
 
 residents = Resident.all
+
 
 cases = residents.each {|resident| 
 	Case.create(
@@ -33,4 +34,17 @@ cases = residents.each {|resident|
 		resident_id: resident.id
 		)
 }
+
+locations = residents.each do |resident|
+	rawr = Location.create!(
+		latitude: 41.365505,
+		longitude: -72.91418,
+		resident_id: resident.id
+		)
+	firebase = Firebase::Client.new('https://evolutiontech.firebaseio.com/residents')
+	response = firebase.push("#{resident.id}", {location: "[#{rawr.latitude}, #{rawr.longitude}]"})
+	puts "Firebase Upload successful? #{response.success?}"
+end
+
+puts "Admin Created"
 
