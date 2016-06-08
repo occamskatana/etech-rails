@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   		resources :users, only: [] do 
   			resources :residents, only: [:index]
   		end
+
+      resources :residents, only: [:show]
   	end
   end
 end
