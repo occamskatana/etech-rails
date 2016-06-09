@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-if User.find(1) === nil
+if User.count === 0
 	admin = User.create!(email: 'johngallweycarter@gmail.com', password: 'helloworld', role: 'case_manager')
 end
 
@@ -20,7 +20,7 @@ residents = 10.times {
 		first_name: Faker::Name.first_name,
 		last_name: Faker::Name.last_name, 
 		phone_number: Faker::PhoneNumber.cell_phone,
-		calendar: 'https://e-tech.firebaseio.com/users/bdsimmons/events',
+		calendar: nil,
 		user_id: User.first.id,
 		phase: ["1", "2", "3"].sample,
 		sober_date: Faker::Date.backward(500)
@@ -61,6 +61,9 @@ calendars = residents.each do |resident|
 		firebase.push("#{resident.id}/calendar", {start: js_convert(start_time), end: js_convert(end_time), title: Faker::Hipster.word})
 		puts "Pushed calendar event for #{resident.first_name} to firebase"
 	end
+
+	resident.calendar = "https://evolutiontech.firebaseio.com/residents/#{resident.id}/calendar"
+	resident.save!
 end
 
 puts "Admin Created"
