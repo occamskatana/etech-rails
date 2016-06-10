@@ -49,7 +49,7 @@ locations = residents.each do |resident|
 		resident_id: resident.id
 		)
 	firebase = Firebase::Client.new('https://evolutiontech.firebaseio.com/residents')
-	response = firebase.push("#{resident.id}/locations", {location: "[#{rawr.latitude}, #{rawr.longitude}]"})
+	response = firebase.push("#{resident.id}/locations", {latitude: rawr.latitude, longitude: rawr.longitude, address: "24 Greenway St, Hamden CT, 06517", time: js_convert(Time.now)})
 	puts "#{resident.first_name} #{resident.last_name} Firebase Upload successful? #{response.success?}"
 end
 
