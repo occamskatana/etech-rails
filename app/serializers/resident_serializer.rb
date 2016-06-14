@@ -25,7 +25,7 @@
 #
 
 class ResidentSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :phone_number, :calendar, :phase, :sober_date, :location
+  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :location, :calendar_url
 
   def firebase_shit
   		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
@@ -40,5 +40,12 @@ class ResidentSerializer < ActiveModel::Serializer
   	return firebase_shit.last.last
   end
 
+  def calendar_url
+  	"https://evolutiontech.firebaseio.com/residents/#{object.id}/calendar"
+  end
+
+  def chat_url
+  	"https://evolutiontech.firebaseio.com/residents/#{object.id}/chat"
+  end
   
 end
