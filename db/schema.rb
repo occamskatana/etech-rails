@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529150513) do
+ActiveRecord::Schema.define(version: 20160614034057) do
 
   create_table "cases", force: :cascade do |t|
     t.integer  "user_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160529150513) do
     t.float    "longitude"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "address"
   end
 
   add_index "locations", ["resident_id"], name: "index_locations_on_resident_id"
