@@ -31,7 +31,6 @@ class ResidentSerializer < ActiveModel::Serializer
   		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
   	response = firebase.get('')
   	return response.body.to_a
-
   end
 
 
