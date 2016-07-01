@@ -36,7 +36,11 @@ class ResidentSerializer < ActiveModel::Serializer
 
 
   def location
-  	return firebase_shit.last.last
+  	if firebase_shit.last.last == nil
+      return "No Last Location"
+    else
+      return firebase_shit.last.last
+    end
   end
 
   def calendar_url
