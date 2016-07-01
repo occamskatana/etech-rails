@@ -27,25 +27,17 @@
 class ResidentSerializer < ActiveModel::Serializer
   attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :location, :calendar_url
 
-  def firebase_shit
+  def location
   		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
   	response = firebase.get('')
     if response.body != nil
-  	 return response.body.to_a
+  	 return response.body.to_a.last.last
     else
       return nil
     end
   end
 
 
-
-  def location
-  	if firebase_shit.last.last == nil
-      return "No Last Location"
-    else
-      return firebase_shit.last.last
-    end
-  end
 
   def calendar_url
   	"https://evolutiontech.firebaseio.com/residents/#{object.id}/calendar"
