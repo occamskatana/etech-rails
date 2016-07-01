@@ -29,13 +29,30 @@ residents = 10.times {
 
 residents = Resident.all
 
+	def create_jc
+		Resident.create(
+			email: "jgfc35@aol.com",
+			password: "helloworld",
+			first_name: "John",
+			last_name: "Carter",
+			phone_number: "5618708191",
+			calendar: nil,
+			user_id: User.first.id,
+			phase: "3",
+			sober_date: Date.new(2013,3,4)
+			)
+		puts "John Carter Account Created"
+	end
 
-cases = residents.each {|resident| 
+	create_jc unless Resident.count % 2 != 0
+
+
+cases = residents.each do |resident| 
 	Case.create(
 		user_id: 1,
 		resident_id: resident.id
 		)
-}
+end
 
 
 def js_convert(time)

@@ -34,8 +34,31 @@ ActiveRecord::Schema.define(version: 20160614034057) do
 
   add_index "locations", ["resident_id"], name: "index_locations_on_resident_id"
 
-# Could not dump table "residents" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "residents", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "calendar"
+    t.string   "sober_date"
+    t.string   "phase"
+  end
+
+  add_index "residents", ["email"], name: "index_residents_on_email", unique: true
+  add_index "residents", ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true
+  add_index "residents", ["user_id"], name: "index_residents_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
