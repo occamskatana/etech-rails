@@ -30,7 +30,7 @@ class ResidentSerializer < ActiveModel::Serializer
   def firebase_shit
   		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
   	response = firebase.get('')
-    if response != nil
+    if response.body != nil
   	 return response.body.to_a
     else
       return nil
