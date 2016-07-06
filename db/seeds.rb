@@ -7,13 +7,28 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 if User.count === 0
-	admin = User.create!(email: 'johngallweycarter@gmail.com', password: 'helloworld', role: 'case_manager')
+	admin = User.create!(
+		email: 'johngallweycarter@gmail.com', 
+		password: 'helloworld', 
+		role: 'case_manager',
+		name: "John Carter"
+		)
+end
+
+if User.count < 2
+	admin = User.create!(
+		email: 'bill@simmons.com',
+		name: "Bill Simmons", 
+		password: 'helloworld', 
+		role: 'case_manager'
+		)
 end
 
 
 
 
 residents = 10.times {
+	houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
 	Resident.create(
 		email: Faker::Internet.email,
 		password: 'helloworld',
@@ -23,13 +38,17 @@ residents = 10.times {
 		calendar: nil,
 		user_id: User.first.id,
 		phase: ["1", "2", "3"].sample,
-		sober_date: Faker::Date.backward(500)
+		sober_date: Faker::Date.backward(500),
+		house_address: houses.sample
 	)
 }
 
 residents = Resident.all
 
+
+
 	def create_jc
+		houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
 		Resident.create(
 			email: "jgfc35@aol.com",
 			password: "helloworld",
@@ -39,7 +58,8 @@ residents = Resident.all
 			calendar: nil,
 			user_id: User.first.id,
 			phase: "3",
-			sober_date: Date.new(2013,3,4)
+			sober_date: Date.new(2013,3,4),
+			house_address: houses.sample
 			)
 		puts "John Carter Account Created"
 	end

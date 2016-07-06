@@ -19,9 +19,10 @@
 #  first_name             :string
 #  last_name              :string
 #  phone_number           :string
-#  calendar               :url
+#  calendar               :string
 #  sober_date             :string
 #  phase                  :string
+#  house_address          :string
 #
 
 class ResidentSerializer < ActiveModel::Serializer

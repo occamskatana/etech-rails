@@ -26,6 +26,8 @@ gem 'faker'
 gem 'firebase'
 gem 'annotate'
 gem 'puma'
+gem 'devise_token_auth'
+gem 'omniauth'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
