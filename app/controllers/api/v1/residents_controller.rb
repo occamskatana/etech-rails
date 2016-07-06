@@ -1,7 +1,7 @@
 class Api::V1::ResidentsController < Api::V1::ApiController
 
 	def index
-		user = current_user
+		user = User.find(params[:user_id])
 
 		residents = user.residents
 
