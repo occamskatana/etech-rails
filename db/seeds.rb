@@ -36,7 +36,7 @@ residents = 10.times {
 		last_name: Faker::Name.last_name, 
 		phone_number: Faker::PhoneNumber.cell_phone,
 		calendar: nil,
-		user_id: User.first.id,
+		user_id: [1, 2].sample,
 		phase: ["1", "2", "3"].sample,
 		sober_date: Faker::Date.backward(500),
 		house_address: houses.sample
@@ -69,9 +69,12 @@ residents = Resident.all
 
 cases = residents.each do |resident| 
 	Case.create(
-		user_id: 1,
+		user_id: resident.user_id,
 		resident_id: resident.id
 		)
+
+	puts "case for #{resident.first_name} created"
+
 end
 
 
