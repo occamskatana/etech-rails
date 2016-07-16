@@ -25,6 +25,8 @@
 #
 
 class User < ActiveRecord::Base
+  
+
   # Include default devise modules.
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable, :omniauthable
@@ -40,5 +42,11 @@ class User < ActiveRecord::Base
 
    enum role: [:case_manager, :support_staff]
 
+
+   private
+
+   def callback
+    puts "Sex"
+   end
 
 end

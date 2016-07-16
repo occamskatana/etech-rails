@@ -27,6 +27,8 @@
 
 class Resident < ActiveRecord::Base
   # Include default devise modules.
+
+  after_create :callback
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable,
           :omniauthable
@@ -37,4 +39,10 @@ class Resident < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :user
   has_many :locations
+
+   private
+
+   def callback
+    puts "Sex"
+   end
 end
