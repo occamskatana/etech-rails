@@ -26,17 +26,16 @@
 #
 
 class ResidentSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :house_address, :location
-
-  def location
-  		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
-  	response = firebase.get('')
-    if response.body != nil
-  	 return response.body.to_a.last.last
-    else
-      return nil
-    end
-  end
+  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :house_address
+  # def location
+  # 		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
+  # 	response = firebase.get('')
+  #   if response.body != nil
+  # 	 return response.body.to_a.last.last
+  #   else
+  #     return nil
+  #   end
+  # end
 
 
 
