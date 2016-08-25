@@ -26,4 +26,4 @@ class User::SessionsController < Devise::SessionsController
 
 
 
->>>>>>> 45c3d99c9c787f80c5571cd627f127e364473bda
+end
