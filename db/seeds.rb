@@ -110,7 +110,7 @@ tasks = residents.each do |resident|
 	tasks_array = ["Urine Test", "Meet with Case Manager", "Attend a Meeting", "Therapy at 4pm"]
 	firebase = Firebase::Client.new('https://evolutiontech.firebaseio.com/residents')
 	tasks_array.each do |task|
-		firebase.push("#{resident.id}/tasks/", {name: "#{task}", complete: false})
+		firebase.push("#{resident.id}/tasks/", {name: "#{task}", complete: false, complete_by: js_convert(Time.now + 1.day)})
 	end
 	puts "Firebase Task Upload for #{resident.first_name} #{resident.last_name} Complete"
 end

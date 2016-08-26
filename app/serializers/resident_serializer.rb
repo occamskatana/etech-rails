@@ -3,7 +3,8 @@
 # Table name: residents
 #
 #  id                     :integer          not null, primary key
-#  email                  :string           default(""), not null
+#  provider               :string           default("email"), not null
+#  uid                    :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -13,8 +14,13 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string
 #  last_sign_in_ip        :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  name                   :string
+#  nickname               :string
+#  image                  :string
+#  email                  :string
+#  tokens                 :text
+#  created_at             :datetime
+#  updated_at             :datetime
 #  user_id                :integer
 #  first_name             :string
 #  last_name              :string
@@ -26,7 +32,7 @@
 #
 
 class ResidentSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :house_address
+  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :tasks_url, :house_address
   # def location
   # 		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
   # 	response = firebase.get('')
@@ -41,6 +47,10 @@ class ResidentSerializer < ActiveModel::Serializer
 
   def calendar_url
   	"https://evolutiontech.firebaseio.com/residents/#{object.id}/calendar"
+  end
+
+  def tasks_url
+    "https://evolutiontech.firebaseio.com/residents/#{object.id}/tasks"
   end
 
   def chat_url
