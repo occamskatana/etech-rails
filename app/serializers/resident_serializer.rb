@@ -32,7 +32,7 @@
 #
 
 class ResidentSerializer < ActiveModel::Serializer
-  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :tasks_url, :house_address
+  attributes :id, :first_name, :last_name, :phone_number, :phase, :sober_date, :calendar_url, :tasks_url, :house_address, :current_location_url
   # def location
   # 		firebase = Firebase::Client.new("https://evolutiontech.firebaseio.com/residents/#{object.id}/locations")
   # 	response = firebase.get('')
@@ -56,5 +56,11 @@ class ResidentSerializer < ActiveModel::Serializer
   def chat_url
   	"https://evolutiontech.firebaseio.com/residents/#{object.id}/chat"
   end
+
+  def current_location_url
+    "https://evolutiontech.firebaseio.com/residents/#{object.id}/current_location"
+  end
+
+  
   
 end

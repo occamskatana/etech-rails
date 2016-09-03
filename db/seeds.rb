@@ -16,7 +16,7 @@ if User.count === 0
 end
 
 if User.count < 2
-	admin = User.create!(
+	bill_simmons = User.create!(
 		email: 'bill@simmons.com',
 		name: "Bill Simmons", 
 		password: 'helloworld', 
@@ -24,10 +24,19 @@ if User.count < 2
 		)
 end
 
+if User.count < 3
+	menlo = User.create!(
+		email: 'demo@menloinnovations.com',
+		name: "Menlo",
+		password: "helloworld",
+		role: 'case_manager'
+	)
+end
 
 
 
-residents = 10.times {
+
+residents = 20.times {
 	houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
 	Resident.create(
 		email: Faker::Internet.email,
@@ -36,7 +45,7 @@ residents = 10.times {
 		last_name: Faker::Name.last_name, 
 		phone_number: Faker::PhoneNumber.cell_phone,
 		calendar: nil,
-		user_id: [1, 2].sample,
+		user_id: [1, 2, 3].sample,
 		phase: ["1", "2", "3"].sample,
 		sober_date: Faker::Date.backward(500),
 		house_address: houses.sample
@@ -47,24 +56,24 @@ residents = Resident.all
 
 
 
-	def create_jc
-		houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
-		Resident.create(
-			email: "jgfc35@aol.com",
-			password: "helloworld",
-			first_name: "John",
-			last_name: "Carter",
-			phone_number: "5618708191",
-			calendar: nil,
-			user_id: User.first.id,
-			phase: "3",
-			sober_date: Date.new(2013,3,4),
-			house_address: houses.sample
-			)
-		puts "John Carter Account Created"
-	end
+def create_jc
+	houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
+	Resident.create(
+		email: "jgfc35@aol.com",
+		password: "helloworld",
+		first_name: "John",
+		last_name: "Carter",
+		phone_number: "5618708191",
+		calendar: nil,
+		user_id: User.first.id,
+		phase: "3",
+		sober_date: Date.new(2013,3,4),
+		house_address: houses.sample
+		)
+	puts "John Carter Account Created"
+end
 
-	create_jc unless Resident.count % 2 != 0
+create_jc unless Resident.count % 2 != 0
 
 
 cases = residents.each do |resident| 
@@ -91,6 +100,18 @@ locations = residents.each do |resident|
 	firebase = Firebase::Client.new('https://evolutiontech.firebaseio.com/residents')
 	response = firebase.push("#{resident.id}/locations", {latitude: rawr.latitude, longitude: rawr.longitude, address: "24 Greenway St, Hamden CT, 06517", time: js_convert(Time.now)})
 	puts "#{resident.first_name} #{resident.last_name} Firebase Upload successful? #{response.success?}"
+end
+
+current_location = residents.each do |resident|
+	rawr = Location.create!(
+		latitude: 41.365505,
+		longitude: -72.91418,
+		resident_id: resident.id
+		)
+	firebase = Firebase::Client.new('https://evolutiontech.firebaseio.com/residents')
+	response = firebase.set("#{resident.id}/current_location", {latitude: rawr.latitude, longitude: rawr.longitude, address: "24 Greenway St, Hamden CT, 06517", time: js_convert(Time.now)})
+	puts "#{resident.first_name} #{resident.last_name} Firebase Upload successful? #{response.success?}"
+
 end
 
 calendars = residents.each do |resident|
