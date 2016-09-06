@@ -73,7 +73,27 @@ def create_jc
 	puts "John Carter Account Created"
 end
 
+def create_menlo
+	houses = ["1212 Quinnipiac Ave", "22 Linden", "980 Townsend Avenue", "The Cove"]
+Resident.create(
+	email: "demo@menloinnovations.com",
+	password: "helloworld",
+	first_name: "Menlo",
+	last_name: "Innovations",
+	phone_number: Faker::PhoneNumber.cell_phone,
+	calendar: nil,
+	user_id: User.last.id,
+	phase: "3",
+	sober_date: Date.new(2013,3,4),
+	house_address: houses.sample
+	)
+puts "Menlo Created"
+end
+
+
+
 create_jc unless Resident.count % 2 != 0
+create_menlo unless Resident.count % 2 == 0 
 
 
 cases = residents.each do |resident| 
